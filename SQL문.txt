@@ -1,0 +1,20 @@
+userName
+int plunderGold
+int plunderElixir
+int plunderDarkElixir
+
+create user cocstatus identified by 1234;
+grant connect, resource, dba to cocstatus;
+
+set sqlprompt "_user>"
+
+create table userInfo(
+userName varchar2(20),
+plunderGold number default '0',
+plunderElixir number default '0',
+plunderDarkElixir number default '0'
+);
+
+회원가입 - 회원 테이블생성 테이블에 회원 기록을 넣는다.
+
+						<span color="#fff" class="sc-ifAKCX sc-eqIVtm ccYABU" id="userName"><%=userName%></span></td>
