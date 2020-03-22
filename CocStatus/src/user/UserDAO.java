@@ -12,11 +12,18 @@ public class UserDAO {
 	private ResultSet rs;
 	public UserDAO(){
 		try {
+			/*
 			String dbURL = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
 			String dbID = "cocstatus ";
 			String dbPW = "1234";
 			Class.forName("oracle.jdbc.driver.OracleDriver");
+			*/
+			String dbURL = "jdbc:mysql://34.71.185.96:3306/COCSTATUS";
+			String dbID = "root";
+			String dbPW = "1234";
+			Class.forName("com.mysql.jdbc.Driver");		
 			conn = DriverManager.getConnection(dbURL, dbID, dbPW);
+			System.out.println("데이터베이스연 결성공");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,7 +61,7 @@ public class UserDAO {
 				return -1;
 			}
 			else {
-				String SQL = "INSERT INTO USERINFO VALUES(?, ?, ?, ?)";
+				String SQL = "INSERT INTO userInfo VALUES(?, ?, ?, ?)";
 				try {
 					pstmt = conn.prepareStatement(SQL);
 					pstmt.setString(1,  user.getUserName());
@@ -97,7 +104,7 @@ public class UserDAO {
 	
 	
 	public int input(User user) {
-		String SQL = "INSERT INTO USERINFO VALUES(?, ?, ?, ?)";
+		String SQL = "INSERT INTO userInfo VALUES(?, ?, ?, ?)";
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1,  user.getUserName());

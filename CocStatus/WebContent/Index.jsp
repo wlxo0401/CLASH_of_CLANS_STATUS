@@ -31,7 +31,7 @@
 				<form id="index" action="UserInfo.jsp" method="get" onsubmit="return false">
 					<input class="textbox1" type="text" size="50" id="userName" name="_userName" placeholder="플레이어 검색">  
 			
-					<input type="button" onclick="check();" value="조회" id="button-blue"/>	
+					<input type="button" onclick="check();" value="조회" id="button-blue2"/>	
 				</form>
 			</div>
 		</div>

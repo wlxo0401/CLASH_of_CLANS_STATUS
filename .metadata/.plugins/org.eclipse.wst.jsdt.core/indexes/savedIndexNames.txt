@@ -1,5 +1,4 @@
 INDEX VERSION 1.4+C:\Users\c\Desktop\프로그램 공부\CocStatus\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2576638630.index
 3645248660.index
 4041407591.index
 3297764766.index

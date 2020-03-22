@@ -15,17 +15,20 @@
 			response.sendRedirect("Index.jsp");
 		}
 	%>
-	
 	<script>
-		function show(){
-			headdiv.style.display = "";
-			showbtn.style.display = "none";
-		}
+		
+		var hihiha = 0;
 		function hide(){
-			headdiv.style.display = "none";
-			showbtn.style.display = "";
+			if (hihiha == "1"){
+				headdiv.style.display = "";
+				hihiha = 0;
+			}else {
+				headdiv.style.display = "none";
+				hihiha = 1;
+			}
 		}
 		
+	
 		/* Clash of Clans 기록 조회 */
 		var searchRequest = new XMLHttpRequest();
 		function searchFunction(){
@@ -74,16 +77,11 @@
 					}
 			}
 		}
-		
 		function firstFunction(){
 			searchFunction();
 			hide();
 		}
-		
-		
-		
 		window.onload = firstFunction;
-	
 	</script>
 </head>
 <body>
@@ -105,14 +103,13 @@
 					<div id = "uesr-Info-head-up">
 						<img id ="logo"  src="img/TH13.png"  width="10%" height="auto" style="text-align: left;">
 						<span color="#fff" class="sc-ifAKCX sc-eqIVtm ccYABU" id="userName2"><%=userName%></span></td>
-						<input type="button" id = "showbtn" value="입력" onclick="show();" style="width: 70px" />	
+						<input type="button" id ="buttonblue" value="입력" onclick="hide();" style="width: 70px" />	
 					</div>
 					<div id = "headdiv">
 						<input class="textbox2" type="text" placeholder="골드"  id="inputGold">  
 						<input class="textbox2" type="text" placeholder="엘릭서"  id="inputElixir">  
 						<input class="textbox2" type="text" placeholder="다크 엘릭서"  id="inputDarkElixir">  
-						<input type="button" onclick="registerFunction2();"  value="등 록" id="button-blue"/>	
-						<input type="button" id = "hidebtn" value="입력중지" onclick="hide();" style="width: 70px" />
+						<input type="button" onclick="registerFunction2();"  value="등 록" style="width:15%" id="button-blue2"/>
 					</div>			
 				</div>
 				<div id = "user-Info_body">

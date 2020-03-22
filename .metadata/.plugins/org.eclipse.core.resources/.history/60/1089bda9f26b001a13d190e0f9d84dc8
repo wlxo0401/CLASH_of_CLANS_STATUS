@@ -1,0 +1,120 @@
+package user;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+public class UserDAO {
+	private Connection conn;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	public UserDAO(){
+		try {
+			/*
+			String dbURL = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+			String dbID = "cocstatus ";
+			String dbPW = "1234";
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			*/
+			String dbURL = "jdbc:mysql://34.71.185.96:3306/COCSTATUS";
+			String dbID = "cocstatus";
+			String dbPW = "1234";
+			Class.forName("com.mysql.jdbc.Driver");		
+			conn = DriverManager.getConnection(dbURL, dbID, dbPW);
+			System.out.println("데이터베이스연 결성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public ArrayList<User> search(String userName){
+		String SQL = "SELECT * FROM userInfo WHERE userName LIKE ?";
+		ArrayList<User> userList = new ArrayList<User>();
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userName);
+			System.out.println(userName);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				User user = new User();
+				user.setUserName(rs.getString(1));
+				user.setPlunderGold(rs.getInt(2));
+				user.setPlunderElixir(rs.getInt(3));
+				user.setPlunderDarkElixir(rs.getInt(4));
+				userList.add(user);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return userList;
+	}
+	
+	public int register(User user) {
+		String SQL2 = "SELECT * FROM userInfo WHERE userName LIKE ?";
+		try {
+			pstmt = conn.prepareStatement(SQL2);
+			pstmt.setString(1, user.getUserName());
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return -1;
+			}
+			else {
+				String SQL = "INSERT INTO userInfo VALUES(?, ?, ?, ?)";
+				try {
+					pstmt = conn.prepareStatement(SQL);
+					pstmt.setString(1,  user.getUserName());
+					pstmt.setInt(2,  user.getPlunderGold());
+					pstmt.setInt(3,  user.getPlunderElixir());
+					pstmt.setInt(4,  user.getPlunderDarkElixir());
+					return pstmt.executeUpdate();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류
+	}
+	
+	
+	
+	//등록 여부 확인
+	
+	public int ishere(User user) {
+		String SQL2 = "SELECT * FROM userInfo WHERE userName LIKE ?";
+		try {
+			pstmt = conn.prepareStatement(SQL2);
+			pstmt.setString(1, user.getUserName());
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return -1;
+			}
+			else {
+				return 1;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류
+	}
+	
+	
+	
+	public int input(User user) {
+		String SQL = "INSERT INTO userInfo VALUES(?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,  user.getUserName());
+			pstmt.setInt(2,  user.getPlunderGold());
+			pstmt.setInt(3,  user.getPlunderElixir());
+			pstmt.setInt(4,  user.getPlunderDarkElixir());
+			return pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류
+	}
+}
